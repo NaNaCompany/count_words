@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Words - Premium Character Counter</title>
+    <meta name="description" content="A premium tool to count characters and bytes, optimized for Hangul.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-left">
+            <a href="https://nanalab.kr" class="logo-link">
+                <img src="https://cdn.jsdelivr.net/gh/NaNaCompany/src_cdn@main/logo/logo.png" alt="NanaLab Logo" class="logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <h1 class="app-title">Count Words</h1>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="counter-card">
+            <div class="input-wrapper">
+                <textarea id="textInput" placeholder="여기에 텍스트를 입력하세요... (Type something here...)"></textarea>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-value" id="charCount">0</span>
+                    <span class="stat-label">Characters (글자 수)</span>
+                </div>
+                <!-- Divider -->
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-value" id="byteCount">0</span>
+                    <span class="stat-label">Bytes (바이트)</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-value" id="spaceCount">0</span>
+                    <span class="stat-label">Characters w/o Space</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2024 NanaLab. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
