@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Count Words - Premium Character Counter</title>
+    <title>글자수 세기 · 공백 제외 · 한글 2바이트 계산 | NaNa Lab</title>
+    <link rel="canonical" href="https://nanalab.kr/count_words/">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9767176956440077"
      crossorigin="anonymous"></script>
-    <meta name="description" content="A premium tool to count characters and bytes, optimized for Hangul.">
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="텍스트를 입력하거나 붙여넣어 공백 포함 글자수, 공백 제외 글자수, 한글 2바이트 기준 분량을 바로 확인하세요. 자기소개서·과제·게시글 작성에 쓸 수 있는 무료 글자수 계산기입니다.">
+    <link rel="stylesheet" href="style.css?v=content-20261025">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -47,39 +48,77 @@
 
     <header class="app-header">
         <div class="header-left">
-            <a href="https://nanalab.kr" class="logo-link">
+            <a href="https://nanalab.kr/" class="logo-link">
                 <img src="https://cdn.jsdelivr.net/gh/NaNaCompany/src_cdn@main/logo/logo.png" alt="NanaLab Logo" class="logo">
             </a>
         </div>
         <div class="header-right">
-            <h1 class="app-title">Count Words</h1>
+            <h1 class="app-title">글자수 세기</h1>
         </div>
     </header>
 
     <main class="main-container">
+        <section class="counter-intro" aria-labelledby="counter-heading">
+            <h2 id="counter-heading">글자수·공백 제외·바이트 계산기</h2>
+            <p>자기소개서, 과제, 소개글을 작성하면서 분량을 확인할 수 있는 무료 도구입니다. 아래 입력창에 글을 쓰거나 붙여넣으면 공백을 포함한 글자수, 공백을 제외한 글자수, 한글 2바이트 기준 분량을 동시에 계산합니다.</p>
+            <p id="counter-note">입력할 때마다 결과가 자동으로 갱신됩니다. 계산은 이 브라우저에서 수행하며, 이 앱의 계산 코드는 입력한 글을 서버로 전송하지 않습니다.</p>
+        </section>
         <div class="counter-card">
             <div class="input-wrapper">
-                <textarea id="textInput" placeholder="여기에 텍스트를 입력하세요... (Type something here...)"></textarea>
+                <label class="input-label" for="textInput">계산할 텍스트</label>
+                <textarea id="textInput" aria-describedby="counter-note" placeholder="여기에 글을 입력하거나 붙여넣으세요."></textarea>
             </div>
             
             <div class="stats-container">
                 <div class="stat-box">
                     <span class="stat-value" id="charCount">0</span>
-                    <span class="stat-label">Characters (글자 수)</span>
+                    <span class="stat-label">글자수 · 공백 포함</span>
                 </div>
                 <!-- Divider -->
                 <div class="stat-divider"></div>
                 <div class="stat-box">
                     <span class="stat-value" id="byteCount">0</span>
-                    <span class="stat-label">Bytes (바이트)</span>
+                    <span class="stat-label">바이트 · 한글 2 기준</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-box">
                     <span class="stat-value" id="spaceCount">0</span>
-                    <span class="stat-label">Characters w/o Space</span>
+                    <span class="stat-label">글자수 · 공백 제외</span>
                 </div>
             </div>
         </div>
+        <section class="counter-help" aria-labelledby="how-to-use">
+            <h2 id="how-to-use">사용 방법</h2>
+            <ol>
+                <li>분량을 확인할 글을 입력창에 직접 입력하거나 복사해 붙여넣습니다.</li>
+                <li>제출 조건이 공백 포함인지 공백 제외인지 확인하고 해당 결과를 비교합니다.</li>
+                <li>글을 수정하면 결과가 바로 바뀝니다. 바이트 제한이 있다면 아래 계산 기준도 확인하세요.</li>
+            </ol>
+            <h2>어떤 기준으로 계산하나요?</h2>
+            <dl>
+                <dt>공백 포함 글자수</dt>
+                <dd>일반적인 한글·영문·숫자·문장부호뿐 아니라 띄어쓰기, 탭, 줄바꿈도 포함합니다. JavaScript 문자열 길이(UTF-16 코드 단위)를 사용하므로 일부 이모지와 조합문자는 눈에 보이는 한 글자가 여러 글자로 계산될 수 있습니다.</dd>
+                <dt>공백 제외 글자수</dt>
+                <dd>띄어쓰기, 탭, 줄바꿈 등 공백 문자를 모두 제외한 길이입니다. 단어의 개수가 아니라 글자의 분량을 확인하는 값입니다.</dd>
+                <dt>한글 2바이트 기준</dt>
+                <dd>영문·숫자·기본 문장부호 같은 ASCII 문자는 1, 그 밖의 UTF-16 코드 단위는 2로 계산합니다. 일반적인 한글 한 글자는 2로 계산되며 이모지는 값이 더 커질 수 있습니다. 실제 파일 크기나 UTF-8 바이트 수와는 다릅니다.</dd>
+            </dl>
+            <h2>계산 예시</h2>
+            <div class="example-table">
+                <table>
+                    <caption>같은 글을 세 가지 기준으로 비교한 예시</caption>
+                    <thead><tr><th scope="col">입력한 글</th><th scope="col">공백 포함</th><th scope="col">공백 제외</th><th scope="col">한글 2바이트 기준</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">안녕하세요</th><td>5</td><td>5</td><td>10</td></tr>
+                        <tr><th scope="row">Hello world</th><td>11</td><td>10</td><td>11</td></tr>
+                        <tr><th scope="row">가나다 ABC</th><td>7</td><td>6</td><td>10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>제출 사이트의 수치와 다를 때</h2>
+            <p>서비스마다 공백·줄바꿈·이모지를 세는 방식과 문자 인코딩이 다를 수 있습니다. 특히 UTF-8에서는 일반적인 한글 한 글자가 3바이트이므로 이 도구의 2바이트 기준과 차이가 납니다. 제출할 곳에서 제공하는 분량 표시와 계산 기준을 최종 기준으로 확인하세요.</p>
+            <noscript><p>실시간 계산에는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 허용한 뒤 글을 입력하세요.</p></noscript>
+        </section>
     </main>
 
     <footer class="app-footer">
